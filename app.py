@@ -64,7 +64,7 @@ def show_home():
             pass
             
     # 3. 참여자 수 표시 (배지 형태나 강조 텍스트)
-    st.markdown(f"<p style='text-align: center; color: #666;'>현재 <b>{user_count}명</b>의 연수생이 팀원을 찾고 있습니다!</p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='text-align: center; color: #666;'>참여자 수: <b>{user_count}명</b></p>", unsafe_allow_html=True)
     
     st.markdown("<p style='text-align: center;'>합격을 진심으로 축하합니다!</p>", unsafe_allow_html=True)
     st.write("---")
