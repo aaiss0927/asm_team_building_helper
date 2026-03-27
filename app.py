@@ -45,15 +45,30 @@ def create_radar_chart(my_scores, partner_scores, partner_name):
 
 # 3. 페이지 렌더링
 def show_home():
+    # 1. DB에서 참여자 수(행 개수) 가져오기
+    try:
+        # count='exact' 옵션을 주면 데이터 본문 대신 개수만 효율적으로 가져옵니다
+        count_res = supabase.table("survey_responses").select("*", count="exact").execute()
+        user_count = count_res.count if count_res.count is not None else 0
+    except:
+        user_count = 0
+
     st.markdown("<h1 style='text-align: center;'>🚀 SOMA 17기 팀 빌딩 헬퍼</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center;'>합격을 진심으로 축하합니다!</p>", unsafe_allow_html=True)
+    
+    # 2. 로고 배치
     _, center_col, _ = st.columns([2, 1, 2])
     with center_col:
         try:
             st.image("logo.png", use_container_width=True)
         except:
             pass
+            
+    # 3. 참여자 수 표시 (배지 형태나 강조 텍스트)
+    st.markdown(f"<p style='text-align: center; color: #666;'>현재 <b>{user_count}명</b>의 연수생이 팀원을 찾고 있습니다!</p>", unsafe_allow_html=True)
+    
+    st.markdown("<p style='text-align: center;'>합격을 진심으로 축하합니다!</p>", unsafe_allow_html=True)
     st.write("---")
+    
     c1, c2 = st.columns(2)
     with c1: 
         if st.button("📊 설문 하기", use_container_width=True): 
